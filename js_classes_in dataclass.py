@@ -93,7 +93,7 @@ and my random password is {HospitalEmployee.generate_password()}.")
 print()
 
 nurse_olynyk.add_certification("Genetics")
-nurse_spensa.add_certification("Speciesology")
+nurse_spensa.add_certification("Neurology")
 
 nurses = [nurse_olynyk, nurse_spensa]
 for nurse in nurses:
@@ -101,4 +101,4 @@ for nurse in nurses:
         f"My name is {nurse.name}, I am a {nurse.specialty},\
 I am certified to work at {nurse.certifications},\
  I have {nurse.take_vacation_days(nurse.days_off)} vacation days \
-and my random password is {HospitalEmployee.generate_password()}.")
+remaining and my random password is {HospitalEmployee.generate_password()}.")
