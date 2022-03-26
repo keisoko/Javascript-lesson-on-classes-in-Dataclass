@@ -6,6 +6,7 @@ from enum import Enum, auto
 
 
 class Specialty(Enum):
+    """Hospital Employee Specialty"""
     SURGEON = auto()
     NURSE = auto()
 
