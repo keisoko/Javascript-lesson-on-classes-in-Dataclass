@@ -11,12 +11,16 @@ class Specialty(Enum):
     NURSE = auto()
 
 
+class Department(Enum):
+    """Hospital Departments"""
+    CARDIOVASCULAR = auto()
+    ORTHOPEDICS = auto()
+
+
 @dataclass(kw_only=True, slots=True)
 class HospitalEmployee:
     """Dataclass representing the parent class of HospitalEmployee"""
-
     remaining_vacation_days = 20
-
     name: str
     specialty: Specialty
     days_off: int
@@ -35,14 +39,12 @@ class HospitalEmployee:
 @dataclass(kw_only=True, slots=True)
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
-
-    department: str
+    department: Department
 
 
 @dataclass(kw_only=True, slots=True)
 class Nurse(HospitalEmployee):
     """Child Class representing Nurse."""
-
     certifications: list[str] = field(default_factory=list)
 
     def add_certification(self, new_certification):
@@ -56,13 +58,13 @@ Surgeons = {
     "surgeon_romero": {
         "name": "Francisco Romero",
         "specialty": Specialty.SURGEON.name,
-        "department": "Cardiovascular",
+        "department": Department.CARDIOVASCULAR.name,
         "days_off": 4,
     },
     "surgeon_jackson": {
         "name": "Ruth Jackson",
         "specialty": Specialty.SURGEON.name,
-        "department": "Orthopedics",
+        "department": Department.ORTHOPEDICS.name,
         "days_off": 5,
     }
 }
