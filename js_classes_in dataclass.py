@@ -82,8 +82,6 @@ Nurses = {
         "certifications": ["Cardiovascular", "Orthopedics"],
         "days_off": 3,
     }
-
-
 }
 
 # Unpacks dictionary stored class objects
