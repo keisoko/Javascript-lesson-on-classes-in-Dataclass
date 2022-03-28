@@ -58,13 +58,13 @@ Surgeons = {
     "surgeon_romero": {
         "name": "Francisco Romero",
         "specialty": Specialty.SURGEON.name,
-        "department": Department.CARDIOVASCULAR.name,
+        "department": Department.CARDIOVASCULAR,
         "days_off": 4,
     },
     "surgeon_jackson": {
         "name": "Ruth Jackson",
         "specialty": Specialty.SURGEON.name,
-        "department": Department.ORTHOPEDICS.name,
+        "department": Department.ORTHOPEDICS,
         "days_off": 5,
     }
 }
