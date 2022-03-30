@@ -12,16 +12,17 @@ class Specialty(Enum):
     NURSE = "Nurse"
 
 
-class Department(Enum):
+class Departments(Enum):
     """Hospital Departments"""
 
     CARDIOVASCULAR = "Cardiovascular"
-    ORTHOPEDICS = "Orthopedics"
+    NEUROSURGERY = "Neurosurgery"
 
 
 @dataclass(kw_only=True, slots=True)
 class HospitalEmployee:
     """Dataclass representing the parent class of HospitalEmployee"""
+
     remaining_vacation_days = 20
     name: str
     specialty: Specialty
@@ -42,7 +43,7 @@ class HospitalEmployee:
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
 
-    department: Department
+    department: Departments
 
 
 @dataclass(kw_only=True, slots=True)
@@ -62,13 +63,13 @@ Surgeons = {
     "surgeon_romero": {
         "name": "Francisco Romero",
         "specialty": Specialty.SURGEON.value,
-        "department": Department.CARDIOVASCULAR.value,
+        "department": Departments.CARDIOVASCULAR.value,
         "days_off": 4,
     },
     "surgeon_jackson": {
         "name": "Ruth Jackson",
         "specialty": Specialty.SURGEON.value,
-        "department": Department.ORTHOPEDICS.value,
+        "department": Departments.NEUROSURGERY.value,
         "days_off": 5,
     }
 }
