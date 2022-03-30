@@ -2,19 +2,21 @@
 
 import random
 from dataclasses import dataclass, field
-from enum import Enum, auto
+from enum import Enum
 
 
 class Specialty(Enum):
     """Hospital Employee Specialty"""
-    SURGEON = auto()
-    NURSE = auto()
+
+    SURGEON = "Surgeon"
+    NURSE = "Nurse"
 
 
 class Department(Enum):
     """Hospital Departments"""
-    CARDIOVASCULAR = auto()
-    ORTHOPEDICS = auto()
+
+    CARDIOVASCULAR = "Cardiovascular"
+    ORTHOPEDICS = "Orthopedics"
 
 
 @dataclass(kw_only=True, slots=True)
@@ -39,12 +41,14 @@ class HospitalEmployee:
 @dataclass(kw_only=True, slots=True)
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
+
     department: Department
 
 
 @dataclass(kw_only=True, slots=True)
 class Nurse(HospitalEmployee):
     """Child Class representing Nurse."""
+
     certifications: list[str] = field(default_factory=list)
 
     def add_certification(self, new_certification):
@@ -57,14 +61,14 @@ class Nurse(HospitalEmployee):
 Surgeons = {
     "surgeon_romero": {
         "name": "Francisco Romero",
-        "specialty": Specialty.SURGEON.name,
-        "department": Department.CARDIOVASCULAR,
+        "specialty": Specialty.SURGEON.value,
+        "department": Department.CARDIOVASCULAR.value,
         "days_off": 4,
     },
     "surgeon_jackson": {
         "name": "Ruth Jackson",
-        "specialty": Specialty.SURGEON.name,
-        "department": Department.ORTHOPEDICS,
+        "specialty": Specialty.SURGEON.value,
+        "department": Department.ORTHOPEDICS.value,
         "days_off": 5,
     }
 }
@@ -72,13 +76,13 @@ Surgeons = {
 Nurses = {
     "nurse_olynyk": {
         "name": "Olynyk",
-        "specialty": Specialty.NURSE.name,
+        "specialty": Specialty.NURSE.value,
         "certifications": ["Trauma", "Pediatrics"],
         "days_off": 6,
     },
     "nurse_spensa": {
         "name": "Spensa",
-        "specialty": Specialty.NURSE.name,
+        "specialty": Specialty.NURSE.value,
         "certifications": ["Cardiovascular", "Orthopedics"],
         "days_off": 3,
     }
