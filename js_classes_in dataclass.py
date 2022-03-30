@@ -12,7 +12,7 @@ class Specialty(Enum):
     NURSE = "Nurse"
 
 
-class Departments(Enum):
+class HospitalDepartments(Enum):
     """Hospital Departments"""
 
     CARDIOVASCULAR = "Cardiovascular"
@@ -43,7 +43,7 @@ class HospitalEmployee:
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
 
-    department: Departments
+    department: HospitalDepartments
 
 
 @dataclass(kw_only=True, slots=True)
@@ -63,13 +63,13 @@ Surgeons = {
     "surgeon_romero": {
         "name": "Francisco Romero",
         "specialty": Specialty.SURGEON.value,
-        "department": Departments.CARDIOVASCULAR.value,
+        "department": HospitalDepartments.CARDIOVASCULAR.value,
         "days_off": 4,
     },
     "surgeon_jackson": {
         "name": "Ruth Jackson",
         "specialty": Specialty.SURGEON.value,
-        "department": Departments.NEUROSURGERY.value,
+        "department": HospitalDepartments.NEUROSURGERY.value,
         "days_off": 5,
     }
 }
