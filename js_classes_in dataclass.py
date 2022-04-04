@@ -29,12 +29,12 @@ class HospitalEmployee:
     days_off: int
 
     @property
-    def take_vacation_days(self):
+    def take_vacation_days(self) -> int:
         """Calculates remaining vacation days"""
         return self.remaining_vacation_days - self.days_off
 
     @staticmethod
-    def generate_password():
+    def generate_password() -> int:
         """Generates random password"""
         return random.randint(0, 10_000)
 
@@ -52,7 +52,7 @@ class Nurse(HospitalEmployee):
 
     certifications: list[str] = field(default_factory=list)
 
-    def add_certification(self, new_certification):
+    def add_certification(self, new_certification: str) -> None:
         """Appends a new certification to the certifications list."""
         self.certifications.append(new_certification)
 
@@ -71,7 +71,7 @@ Surgeons = {
         "specialty": Specialty.SURGEON.value,
         "department": HospitalDepartments.NEUROSURGERY.value,
         "days_off": 5,
-    }
+    },
 }
 
 Nurses = {
@@ -86,7 +86,7 @@ Nurses = {
         "specialty": Specialty.NURSE.value,
         "certifications": ["Cardiovascular", "Orthopedics"],
         "days_off": 3,
-    }
+    },
 }
 
 # Unpacks dictionary stored class objects
@@ -99,7 +99,9 @@ nurse_spensa = Nurse(**Nurses["nurse_spensa"])
 surgeons = [surgeon_romero, surgeon_jackson]
 
 for surgeon in surgeons:
-    print(f"My name is {surgeon.name}, I am a {surgeon.department} {surgeon.specialty}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.")
+    print(
+        f"My name is {surgeon.name}, I am a {surgeon.department} {surgeon.specialty}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
+    )
 
 print()
 
@@ -109,6 +111,7 @@ nurse_spensa.add_certification("Neurology")
 nurses = [nurse_olynyk, nurse_spensa]
 for nurse in nurses:
     print(
-        f"My name is {nurse.name}, I am a {nurse.specialty}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.")
+        f"My name is {nurse.name}, I am a {nurse.specialty}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
+    )
 
 print()
