@@ -34,9 +34,9 @@ class HospitalEmployee:
         return self.remaining_vacation_days - self.days_off
 
     @staticmethod
-    def generate_password() -> int:
+    def generate_password(PASSWORD_UPPER_LIMIT: int = 10_000) -> int:
         """Generates random password"""
-        return random.randint(0, 10_000)
+        return random.randint(0, PASSWORD_UPPER_LIMIT)
 
 
 @dataclass(kw_only=True, slots=True)
