@@ -23,7 +23,9 @@ class HospitalDepartments(Enum):
 class HospitalEmployee:
     """Dataclass representing the parent class of HospitalEmployee"""
 
-    remaining_vacation_days = 20
+    REMAINING_VACATION_DAYS: int = 20
+    PASSWORD_UPPER_LIMIT: int = 10_000
+
     name: str
     specialty: Specialty
     days_off: int
@@ -31,10 +33,10 @@ class HospitalEmployee:
     @property
     def take_vacation_days(self) -> int:
         """Calculates remaining vacation days"""
-        return self.remaining_vacation_days - self.days_off
+        return self.REMAINING_VACATION_DAYS - self.days_off
 
     @staticmethod
-    def generate_password(PASSWORD_UPPER_LIMIT: int = 10_000) -> int:
+    def generate_password(PASSWORD_UPPER_LIMIT) -> int:
         """Generates random password"""
         return random.randint(0, PASSWORD_UPPER_LIMIT)
 
@@ -57,61 +59,62 @@ class Nurse(HospitalEmployee):
         self.certifications.append(new_certification)
 
 
-# Dictionaries to store class objects and their attributes
+def main():
+    Surgeons = {
+        "surgeon_romero": {
+            "name": "Francisco Romero",
+            "specialty": Specialty.SURGEON.value,
+            "department": HospitalDepartments.CARDIOVASCULAR.value,
+            "days_off": 4,
+        },
+        "surgeon_jackson": {
+            "name": "Ruth Jackson",
+            "specialty": Specialty.SURGEON.value,
+            "department": HospitalDepartments.NEUROSURGERY.value,
+            "days_off": 5,
+        },
+    }
 
-Surgeons = {
-    "surgeon_romero": {
-        "name": "Francisco Romero",
-        "specialty": Specialty.SURGEON.value,
-        "department": HospitalDepartments.CARDIOVASCULAR.value,
-        "days_off": 4,
-    },
-    "surgeon_jackson": {
-        "name": "Ruth Jackson",
-        "specialty": Specialty.SURGEON.value,
-        "department": HospitalDepartments.NEUROSURGERY.value,
-        "days_off": 5,
-    },
-}
+    Nurses = {
+        "nurse_olynyk": {
+            "name": "Olynyk",
+            "specialty": Specialty.NURSE.value,
+            "certifications": ["Trauma", "Pediatrics"],
+            "days_off": 6,
+        },
+        "nurse_spensa": {
+            "name": "Spensa",
+            "specialty": Specialty.NURSE.value,
+            "certifications": ["Cardiovascular", "Orthopedics"],
+            "days_off": 3,
+        },
+    }
 
-Nurses = {
-    "nurse_olynyk": {
-        "name": "Olynyk",
-        "specialty": Specialty.NURSE.value,
-        "certifications": ["Trauma", "Pediatrics"],
-        "days_off": 6,
-    },
-    "nurse_spensa": {
-        "name": "Spensa",
-        "specialty": Specialty.NURSE.value,
-        "certifications": ["Cardiovascular", "Orthopedics"],
-        "days_off": 3,
-    },
-}
+    # Unpacks dictionary stored class objects
 
-# Unpacks dictionary stored class objects
+    surgeon_romero = Surgeon(**Surgeons["surgeon_romero"])
+    surgeon_jackson = Surgeon(**Surgeons["surgeon_jackson"])
+    nurse_olynyk = Nurse(**Nurses["nurse_olynyk"])
+    nurse_spensa = Nurse(**Nurses["nurse_spensa"])
 
-surgeon_romero = Surgeon(**Surgeons["surgeon_romero"])
-surgeon_jackson = Surgeon(**Surgeons["surgeon_jackson"])
-nurse_olynyk = Nurse(**Nurses["nurse_olynyk"])
-nurse_spensa = Nurse(**Nurses["nurse_spensa"])
+    surgeons = [surgeon_romero, surgeon_jackson]
 
-surgeons = [surgeon_romero, surgeon_jackson]
+    for surgeon in surgeons:
+        print(
+            f"My name is {surgeon.name}, I am a {surgeon.department} {surgeon.specialty}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.PASSWORD_UPPER_LIMIT)}."
+        )
 
-for surgeon in surgeons:
-    print(
-        f"My name is {surgeon.name}, I am a {surgeon.department} {surgeon.specialty}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
-    )
+    print()
 
-print()
+    nurse_olynyk.add_certification("Genetics")
+    nurse_spensa.add_certification("Neurology")
 
-nurse_olynyk.add_certification("Genetics")
-nurse_spensa.add_certification("Neurology")
+    nurses = [nurse_olynyk, nurse_spensa]
+    for nurse in nurses:
+        print(
+            f"My name is {nurse.name}, I am a {nurse.specialty}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(nurse.PASSWORD_UPPER_LIMIT)}."
+        )
 
-nurses = [nurse_olynyk, nurse_spensa]
-for nurse in nurses:
-    print(
-        f"My name is {nurse.name}, I am a {nurse.specialty}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
-    )
 
-print()
+if __name__ == "__main__":
+    main()
