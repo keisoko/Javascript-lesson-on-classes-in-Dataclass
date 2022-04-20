@@ -90,8 +90,6 @@ def main():
         },
     }
 
-    # Unpacks dictionary stored class objects
-
     surgeon_romero = Surgeon(**Surgeons["surgeon_romero"])
     surgeon_jackson = Surgeon(**Surgeons["surgeon_jackson"])
     nurse_olynyk = Nurse(**Nurses["nurse_olynyk"])
