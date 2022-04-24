@@ -2,21 +2,21 @@
 
 import random
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import Enum, auto
 
 
 class Specialty(Enum):
     """Hospital Employee Specialty"""
 
-    SURGEON = "Surgeon"
-    NURSE = "Nurse"
+    SURGEON = auto()
+    NURSE = auto()
 
 
 class HospitalDepartments(Enum):
     """Hospital Departments"""
 
-    CARDIOVASCULAR = "Cardiovascular"
-    NEUROSURGERY = "Neurosurgery"
+    CARDIOVASCULAR = auto()
+    NEUROSURGERY = auto()
 
 
 @dataclass(kw_only=True, slots=True)
@@ -60,40 +60,34 @@ class Nurse(HospitalEmployee):
 
 
 def main():
-    Surgeons = {
-        "surgeon_romero": {
-            "name": "Francisco Romero",
-            "specialty": Specialty.SURGEON.value,
-            "department": HospitalDepartments.CARDIOVASCULAR.value,
-            "days_off": 4,
-        },
-        "surgeon_jackson": {
-            "name": "Ruth Jackson",
-            "specialty": Specialty.SURGEON.value,
-            "department": HospitalDepartments.NEUROSURGERY.value,
-            "days_off": 5,
-        },
-    }
+    """Main program."""
 
-    Nurses = {
-        "nurse_olynyk": {
-            "name": "Olynyk",
-            "specialty": Specialty.NURSE.value,
-            "certifications": ["Trauma", "Pediatrics"],
-            "days_off": 6,
-        },
-        "nurse_spensa": {
-            "name": "Spensa",
-            "specialty": Specialty.NURSE.value,
-            "certifications": ["Cardiovascular", "Orthopedics"],
-            "days_off": 3,
-        },
-    }
+    surgeon_romero = Surgeon(
+        name="Francisco Romero",
+        specialty=Specialty.SURGEON,
+        department=HospitalDepartments.CARDIOVASCULAR,
+        days_off=4,
+    )
+    surgeon_jackson = Surgeon(
+        name="Ruth Jackson",
+        specialty=Specialty.SURGEON,
+        department=HospitalDepartments.NEUROSURGERY,
+        days_off=5,
+    )
+    nurse_olynyk = Nurse(
+        name="Olynyk",
+        specialty=Specialty.NURSE,
+        certifications=["Trauma", "Pediatrics"],
+        days_off=6,
+    )
+    nurse_spensa = Nurse(
+        name="Spensa",
+        specialty=Specialty.NURSE,
+        certifications=["Cardiovascular", "Orthopedics"],
+        days_off=3,
+    )
 
-    surgeon_romero = Surgeon(**Surgeons["surgeon_romero"])
-    surgeon_jackson = Surgeon(**Surgeons["surgeon_jackson"])
-    nurse_olynyk = Nurse(**Nurses["nurse_olynyk"])
-    nurse_spensa = Nurse(**Nurses["nurse_spensa"])
+    print()
 
     surgeons = [surgeon_romero, surgeon_jackson]
 
@@ -110,7 +104,7 @@ def main():
     nurses = [nurse_olynyk, nurse_spensa]
     for nurse in nurses:
         print(
-            f"My name is {nurse.name}, I am a {nurse.specialty}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(nurse.PASSWORD_UPPER_LIMIT)}."
+            f"My name is {nurse.name}, I am a {nurse.specialty}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is{HospitalEmployee.generate_password(nurse.PASSWORD_UPPER_LIMIT)}."
         )
 
 
