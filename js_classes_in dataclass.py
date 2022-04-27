@@ -23,8 +23,8 @@ class HospitalDepartments(Enum):
 class HospitalEmployee:
     """Dataclass representing the parent class of HospitalEmployee"""
 
-    REMAINING_VACATION_DAYS: int = 20
-    PASSWORD_UPPER_LIMIT: int = 10_000
+    remaining_vacation_days: int = 20
+    password_upper_limit: int = 10_000
 
     name: str
     specialty: Specialty
@@ -33,12 +33,12 @@ class HospitalEmployee:
     @property
     def take_vacation_days(self) -> int:
         """Calculates remaining vacation days"""
-        return self.REMAINING_VACATION_DAYS - self.days_off
+        return self.remaining_vacation_days - self.days_off
 
     @staticmethod
-    def generate_password(PASSWORD_UPPER_LIMIT) -> int:
+    def generate_password(password_upper_limit) -> int:
         """Generates random password"""
-        return random.randint(0, PASSWORD_UPPER_LIMIT)
+        return random.randint(0, password_upper_limit)
 
 
 @dataclass(kw_only=True, slots=True)
@@ -93,7 +93,7 @@ def main():
 
     for surgeon in surgeons:
         print(
-            f"My name is {surgeon.name}, I am a {surgeon.department} {surgeon.specialty}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.PASSWORD_UPPER_LIMIT)}."
+            f"My name is {surgeon.name}, I am a {surgeon.department} {surgeon.specialty}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}."
         )
 
     print()
@@ -104,7 +104,7 @@ def main():
     nurses = [nurse_olynyk, nurse_spensa]
     for nurse in nurses:
         print(
-            f"My name is {nurse.name}, I am a {nurse.specialty}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is{HospitalEmployee.generate_password(nurse.PASSWORD_UPPER_LIMIT)}."
+            f"My name is {nurse.name}, I am a {nurse.specialty}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is{HospitalEmployee.generate_password(nurse.password_upper_limit)}."
         )
 
 
