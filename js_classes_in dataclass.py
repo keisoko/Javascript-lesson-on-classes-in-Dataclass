@@ -2,21 +2,21 @@
 
 import random
 from dataclasses import dataclass, field
-from enum import Enum, auto
+from enum import Enum
 
 
 class Specialty(Enum):
     """Hospital Employee Specialty"""
 
-    SURGEON = auto()
-    NURSE = auto()
+    SURGEON = "Surgeon"
+    NURSE = "Nurse"
 
 
 class HospitalDepartments(Enum):
     """Hospital Departments"""
 
-    CARDIOVASCULAR = auto()
-    NEUROSURGERY = auto()
+    CARDIOVASCULAR = "Cardiovascular"
+    NEUROSURGERY = "Neurosurgery"
 
 
 @dataclass(kw_only=True, slots=True)
@@ -93,7 +93,7 @@ def main():
 
     for surgeon in surgeons:
         print(
-            f"My name is {surgeon.name}, I am a {surgeon.department} {surgeon.specialty}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}."
+            f"My name is {surgeon.name}, I am a {surgeon.department.value} {surgeon.specialty.value}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}."
         )
 
     print()
@@ -104,7 +104,7 @@ def main():
     nurses = [nurse_olynyk, nurse_spensa]
     for nurse in nurses:
         print(
-            f"My name is {nurse.name}, I am a {nurse.specialty}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is{HospitalEmployee.generate_password(nurse.password_upper_limit)}."
+            f"My name is {nurse.name}, I am a {nurse.specialty.value}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is{HospitalEmployee.generate_password(nurse.password_upper_limit)}."
         )
 
 
