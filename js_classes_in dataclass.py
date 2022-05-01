@@ -35,8 +35,8 @@ class HospitalEmployee:
         """Calculates remaining vacation days"""
         return self.remaining_vacation_days - self.days_off
 
-    @staticmethod
-    def generate_password(password_upper_limit) -> int:
+    @classmethod
+    def generate_password(cls, password_upper_limit) -> int:
         """Generates random password"""
         return random.randint(0, password_upper_limit)
 
