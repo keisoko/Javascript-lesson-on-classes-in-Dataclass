@@ -67,7 +67,8 @@ class Nurse(HospitalEmployee):
 
     def add_certification(self, new_certification: str) -> None:
         """Appends a new certification to the certifications list."""
-        self.certifications.append(new_certification)
+        if new_certification not in self.certifications:
+            self.certifications.append(new_certification)
 
 
 def main():
@@ -104,7 +105,8 @@ def main():
 
     for surgeon in surgeons:
         print(
-            f"My name is {surgeon.name}, I am a {surgeon.department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}."
+            f"My name is {surgeon.name}, I am a {surgeon.department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
+            end="\n\n",
         )
 
     print()
@@ -115,7 +117,8 @@ def main():
     nurses = [nurse_olynyk, nurse_spensa]
     for nurse in nurses:
         print(
-            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(nurse.password_upper_limit)}."
+            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(nurse.password_upper_limit)}.",
+            end="\n\n",
         )
 
 
