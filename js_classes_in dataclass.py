@@ -1,8 +1,14 @@
 """Codecademy JavaScript lesson on Classes in the Python Dataclass syntax"""
 
 import random
+import string
 from dataclasses import dataclass, field
 from enum import Enum
+
+
+def generate_id(length: int = 8):
+    """Helper function to generate id."""
+    return "".join(random.choices(string.ascii_uppercase, k=length))
 
 
 class Specialty(Enum):
@@ -29,6 +35,7 @@ class HospitalEmployee:
     name: str
     specialty: Specialty
     days_off: int
+    hospital_id: str = field(init=False)
 
     @property
     def take_vacation_days(self) -> int:
@@ -39,6 +46,10 @@ class HospitalEmployee:
     def generate_password(password_upper_limit) -> int:
         """Generates random password"""
         return random.randint(0, password_upper_limit)
+
+    def __post_init__(self):
+        """Generates hospital id"""
+        self.hospital_id = generate_id()
 
 
 @dataclass(kw_only=True, slots=True)
@@ -93,7 +104,7 @@ def main():
 
     for surgeon in surgeons:
         print(
-            f"My name is {surgeon.name}, I am a {surgeon.department.value} {surgeon.specialty.value}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}."
+            f"My name is {surgeon.name}, I am a {surgeon.department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}."
         )
 
     print()
@@ -104,7 +115,7 @@ def main():
     nurses = [nurse_olynyk, nurse_spensa]
     for nurse in nurses:
         print(
-            f"My name is {nurse.name}, I am a {nurse.specialty.value}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is{HospitalEmployee.generate_password(nurse.password_upper_limit)}."
+            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(nurse.password_upper_limit)}."
         )
 
 
