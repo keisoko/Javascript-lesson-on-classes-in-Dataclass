@@ -1,14 +1,10 @@
 """Codecademy JavaScript lesson on Classes in the Python Dataclass syntax"""
 
 import random
-import string
 from dataclasses import dataclass, field
 from enum import Enum
 
-
-def generate_id(length: int = 8):
-    """Helper function to generate id."""
-    return "".join(random.choices(string.ascii_uppercase, k=length))
+import my_python_modules
 
 
 class Specialty(Enum):
@@ -49,7 +45,7 @@ class HospitalEmployee:
 
     def __post_init__(self):
         """Generates hospital id"""
-        self.hospital_id = generate_id()
+        self.hospital_id = my_python_modules.generate_id(length=8)
 
 
 @dataclass(kw_only=True, slots=True)
