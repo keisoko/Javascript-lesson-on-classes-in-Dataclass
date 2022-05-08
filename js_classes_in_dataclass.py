@@ -48,14 +48,14 @@ class HospitalEmployee:
         self.hospital_id = my_python_modules.generate_id(length=8)
 
 
-@dataclass(slots=True)
+@dataclass
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
 
     department: HospitalDepartments
 
 
-@dataclass(slots=True)
+@dataclass
 class Nurse(HospitalEmployee):
     """Child Class representing Nurse."""
 
