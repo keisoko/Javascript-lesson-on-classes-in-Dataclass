@@ -21,12 +21,12 @@ class HospitalDepartments(Enum):
     NEUROSURGERY = "Neurosurgery"
 
 
-@dataclass(kw_only=True, slots=True)
+@dataclass(slots=True)
 class HospitalEmployee:
     """Dataclass representing the parent class of HospitalEmployee"""
 
-    remaining_vacation_days: int = 20
-    password_upper_limit: int = 10_000
+    remaining_vacation_days = 20
+    password_upper_limit = 10_000
 
     name: str
     specialty: Specialty
@@ -48,14 +48,14 @@ class HospitalEmployee:
         self.hospital_id = my_python_modules.generate_id(length=8)
 
 
-@dataclass(kw_only=True, slots=True)
+@dataclass(slots=True)
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
 
     department: HospitalDepartments
 
 
-@dataclass(kw_only=True, slots=True)
+@dataclass(slots=True)
 class Nurse(HospitalEmployee):
     """Child Class representing Nurse."""
 
