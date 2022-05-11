@@ -18,5 +18,3 @@ Here is list of links with more info:
 - Real Python article: [Data Classes in Python 3.7+ (Guide)](https://realpython.com/python-data-classes/)
 
 The use of `slots=True` declaration in the `@dataclass` decorator requires Python 3.10. Also, if you are using any Python version less than 3.9, you need to have this import: `from typing import List` and this line `list[str] = field(default_factory=list)` needs to be changed to `List[str] = field(default_factory=list)`
-
-`generate_id` function is contained in `my_python_modules.py`. Make sure that `my_python_modules.py` resides in the same directory as the `js_classes_in_dataclass.py`.
