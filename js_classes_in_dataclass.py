@@ -23,6 +23,7 @@ class HospitalDepartments(Enum):
 
     CARDIOVASCULAR = "Cardiovascular"
     NEUROSURGERY = "Neurosurgery"
+    ORTHOPEDICS = "Orthopedics"
 
 
 @dataclass(slots=True)
@@ -86,28 +87,40 @@ def main():
         department=HospitalDepartments.NEUROSURGERY,
         days_off=5,
     )
+    surgeon_sanderson = Surgeon(
+        name="Brandon Sanderson",
+        specialty=Specialty.SURGEON,
+        department=HospitalDepartments.ORTHOPEDICS,
+        days_off=6,
+    )
     nurse_olynyk = Nurse(
         name="Olynyk",
         specialty=Specialty.NURSE,
         certifications=["Trauma", "Pediatrics"],
-        days_off=6,
+        days_off=7,
     )
     nurse_spensa = Nurse(
         name="Spensa",
         specialty=Specialty.NURSE,
         certifications=["Cardiovascular", "Orthopedics"],
-        days_off=3,
+        days_off=8,
     )
 
     print()
 
-    surgeons = [surgeon_romero, surgeon_jackson]
+    surgeons = [surgeon_romero, surgeon_jackson, surgeon_sanderson]
 
     for surgeon in surgeons:
-        print(
-            f"My name is {surgeon.name}, I am a {surgeon.department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
-            end="\n\n",
-        )
+        if surgeon.department.value[0] in "aeiouAEIOU":
+            print(
+                f"My name is {surgeon.name}, I am an {surgeon.department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
+                end="\n\n",
+            )
+        else:
+            print(
+                f"My name is {surgeon.name}, I am a {surgeon.department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
+                end="\n\n",
+            )
 
     print()
 
