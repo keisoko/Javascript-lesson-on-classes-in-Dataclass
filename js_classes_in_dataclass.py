@@ -87,8 +87,8 @@ class InstanceHolder:
         department=HospitalDepartments.NEUROSURGERY,
         days_off=5,
     )
-    surgeon_sanderson = Surgeon(
-        name="Brandon Sanderson",
+    surgeon_octavian = Surgeon(
+        name="Tavi Octavian",
         specialty=Specialty.SURGEON,
         department=HospitalDepartments.ORTHOPEDICS,
         days_off=6,
@@ -116,7 +116,7 @@ def main():
     surgeons = [
         InstanceHolder.surgeon_romero,
         InstanceHolder.surgeon_jackson,
-        InstanceHolder.surgeon_sanderson,
+        InstanceHolder.surgeon_octavian,
     ]
 
     for surgeon in surgeons:
