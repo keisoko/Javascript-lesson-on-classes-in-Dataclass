@@ -57,7 +57,7 @@ class HospitalEmployee:
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
 
-    department: HospitalDepartments
+    hospital_department: HospitalDepartments
 
 
 @dataclass
@@ -78,19 +78,19 @@ class InstanceHolder:
     surgeon_romero = Surgeon(
         name="Francisco Romero",
         specialty=Specialty.SURGEON,
-        department=HospitalDepartments.CARDIOVASCULAR,
+        hospital_department=HospitalDepartments.CARDIOVASCULAR,
         days_off=4,
     )
     surgeon_jackson = Surgeon(
         name="Ruth Jackson",
         specialty=Specialty.SURGEON,
-        department=HospitalDepartments.NEUROSURGERY,
+        hospital_department=HospitalDepartments.NEUROSURGERY,
         days_off=5,
     )
     surgeon_octavian = Surgeon(
         name="Tavi Octavian",
         specialty=Specialty.SURGEON,
-        department=HospitalDepartments.ORTHOPEDICS,
+        hospital_department=HospitalDepartments.ORTHOPEDICS,
         days_off=6,
     )
 
@@ -120,14 +120,14 @@ def main():
     ]
 
     for surgeon in surgeons:
-        if surgeon.department.value[0] in "aeiouAEIOU":
+        if surgeon.hospital_department.value[0] in "aeiouAEIOU":
             print(
-                f"My name is {surgeon.name}, I am an {surgeon.department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
+                f"My name is {surgeon.name}, I am an {surgeon.hospital_department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
                 end="\n\n",
             )
         else:
             print(
-                f"My name is {surgeon.name}, I am a {surgeon.department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
+                f"My name is {surgeon.name}, I am a {surgeon.hospital_department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
                 end="\n\n",
             )
 
