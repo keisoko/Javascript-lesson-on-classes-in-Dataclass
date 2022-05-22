@@ -72,7 +72,7 @@ class Nurse(HospitalEmployee):
             self.certifications.append(new_certification)
 
 
-class InstanceHolder:
+class InstancesHolder:
     """Creates class instances"""
 
     surgeon_romero = Surgeon(
@@ -113,11 +113,11 @@ def main():
 
     print()
 
-    surgeons = [
-        InstanceHolder.surgeon_romero,
-        InstanceHolder.surgeon_jackson,
-        InstanceHolder.surgeon_octavian,
-    ]
+    surgeon_romero = InstancesHolder.surgeon_romero
+    surgeon_jackson = InstancesHolder.surgeon_jackson
+    surgeon_octavian = InstancesHolder.surgeon_octavian
+
+    surgeons = [surgeon_romero, surgeon_jackson, surgeon_octavian]
 
     for surgeon in surgeons:
         if surgeon.hospital_department.value[0] in "aeiouAEIOU":
@@ -131,12 +131,13 @@ def main():
                 end="\n\n",
             )
 
-    print()
+    nurse_olynyk = InstancesHolder.nurse_olynyk
+    nurse_spensa = InstancesHolder.nurse_spensa
 
-    InstanceHolder.nurse_olynyk.add_certification("Genetics")
-    InstanceHolder.nurse_spensa.add_certification("Neurology")
+    nurse_olynyk.add_certification("Genetics")
+    nurse_spensa.add_certification("Neurology")
 
-    nurses = [InstanceHolder.nurse_olynyk, InstanceHolder.nurse_spensa]
+    nurses = [nurse_olynyk, nurse_spensa]
     for nurse in nurses:
         print(
             f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(nurse.password_upper_limit)}.",
