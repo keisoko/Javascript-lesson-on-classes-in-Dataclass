@@ -135,6 +135,7 @@ def main():
     nurse_spensa.add_certification("Neurology")
 
     nurses = [nurse_olynyk, nurse_spensa]
+
     for nurse in nurses:
         print(
             f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
