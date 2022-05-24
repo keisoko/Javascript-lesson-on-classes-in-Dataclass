@@ -30,23 +30,20 @@ class HospitalDepartments(Enum):
 class HospitalEmployee:
     """Dataclass representing the parent class of HospitalEmployee"""
 
-    remaining_vacation_days = 20
-    password_upper_limit = 10_000
-
     name: str
     specialty: Specialty
     days_off: int
     hospital_id: str = field(init=False)
 
     @property
-    def take_vacation_days(self) -> int:
+    def take_vacation_days(self, REMAINING_VACATION_DAYS: int = 20) -> int:
         """Calculates remaining vacation days"""
-        return self.remaining_vacation_days - self.days_off
+        return REMAINING_VACATION_DAYS - self.days_off
 
     @staticmethod
-    def generate_password(password_upper_limit) -> int:
+    def generate_password(PASSWORD_UPPER_LIMIT: int = 10_000) -> int:
         """Generates random password"""
-        return random.randint(0, password_upper_limit)
+        return random.randint(0, PASSWORD_UPPER_LIMIT)
 
     def __post_init__(self):
         """Generates hospital id"""
@@ -122,12 +119,12 @@ def main():
     for surgeon in surgeons:
         if surgeon.hospital_department.value[0] in "aeiouAEIOU":
             print(
-                f"My name is {surgeon.name}, I am an {surgeon.hospital_department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
+                f"My name is {surgeon.name}, I am an {surgeon.hospital_department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
                 end="\n\n",
             )
         else:
             print(
-                f"My name is {surgeon.name}, I am a {surgeon.hospital_department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(surgeon.password_upper_limit)}.",
+                f"My name is {surgeon.name}, I am a {surgeon.hospital_department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
                 end="\n\n",
             )
 
@@ -140,7 +137,7 @@ def main():
     nurses = [nurse_olynyk, nurse_spensa]
     for nurse in nurses:
         print(
-            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password(nurse.password_upper_limit)}.",
+            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
             end="\n\n",
         )
 
