@@ -5,6 +5,9 @@ import string
 from dataclasses import dataclass, field
 from enum import Enum
 
+REMAINING_VACATION_DAYS: int = 20
+PASSWORD_UPPER_LIMIT: int = 10_000
+
 
 def generate_id(length: int):
     """Helper function to generate id."""
@@ -36,12 +39,12 @@ class HospitalEmployee:
     hospital_id: str = field(init=False)
 
     @property
-    def take_vacation_days(self, REMAINING_VACATION_DAYS: int = 20) -> int:
+    def take_vacation_days(self) -> int:
         """Calculates remaining vacation days"""
         return REMAINING_VACATION_DAYS - self.days_off
 
     @staticmethod
-    def generate_password(PASSWORD_UPPER_LIMIT: int = 10_000) -> int:
+    def generate_password() -> int:
         """Generates random password"""
         return random.randint(0, PASSWORD_UPPER_LIMIT)
 
