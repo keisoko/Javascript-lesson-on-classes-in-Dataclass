@@ -21,7 +21,7 @@ class Specialty(Enum):
     NURSE = "Nurse"
 
 
-class HospitalDepartments(Enum):
+class Department(Enum):
     """Hospital Departments"""
 
     CARDIOVASCULAR = "Cardiovascular"
@@ -57,7 +57,7 @@ class HospitalEmployee:
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
 
-    hospital_department: HospitalDepartments
+    hospital_department: Department
 
 
 @dataclass
@@ -78,19 +78,19 @@ class InstancesHolder:
     surgeon_romero = Surgeon(
         name="Francisco Romero",
         specialty=Specialty.SURGEON,
-        hospital_department=HospitalDepartments.CARDIOVASCULAR,
+        hospital_department=Department.CARDIOVASCULAR,
         days_off=4,
     )
     surgeon_jackson = Surgeon(
         name="Ruth Jackson",
         specialty=Specialty.SURGEON,
-        hospital_department=HospitalDepartments.NEUROSURGERY,
+        hospital_department=Department.NEUROSURGERY,
         days_off=5,
     )
     surgeon_octavian = Surgeon(
         name="Tavi Octavian",
         specialty=Specialty.SURGEON,
-        hospital_department=HospitalDepartments.ORTHOPEDICS,
+        hospital_department=Department.ORTHOPEDICS,
         days_off=6,
     )
 
@@ -120,16 +120,10 @@ def main():
     surgeons = [surgeon_romero, surgeon_jackson, surgeon_octavian]
 
     for surgeon in surgeons:
-        if surgeon.hospital_department.value[0] in "aeiouAEIOU":
-            print(
-                f"My name is {surgeon.name}, I am an {surgeon.hospital_department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
-                end="\n\n",
-            )
-        else:
-            print(
-                f"My name is {surgeon.name}, I am a {surgeon.hospital_department.value} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
-                end="\n\n",
-            )
+        print(
+            f"My name is {surgeon.name}, I am a {surgeon.hospital_department} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
+            end="\n\n",
+        )
 
     nurse_olynyk = InstancesHolder.nurse_olynyk
     nurse_spensa = InstancesHolder.nurse_spensa
