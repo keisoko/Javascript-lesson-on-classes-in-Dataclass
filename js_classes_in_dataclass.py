@@ -39,6 +39,12 @@ class HospitalEmployee:
     hospital_id: str = field(init=False)
     email_address: str = field(init=False)
 
+    def __post_init__(self):
+        """Initializes the hospital employee id and email address"""
+        self.hospital_id = generate_id(length=8)
+        first_name, last_name = self.name.split()
+        self.email_address = f"{first_name}.{last_name}@hospital.com"
+
     @property
     def take_vacation_days(self) -> int:
         """Calculates remaining vacation days"""
@@ -49,11 +55,10 @@ class HospitalEmployee:
         """Generates random password"""
         return random.randint(0, PASSWORD_UPPER_LIMIT)
 
-    def __post_init__(self):
-        """Initializes the hospital employee id and email address"""
-        self.hospital_id = generate_id(length=8)
-        first_name, last_name = self.name.split()
-        self.email_address = f"{first_name}.{last_name}@hospital.com"
+    @property
+    def say_email(self) -> str:
+        """Display email address"""
+        return f"my email address is {self.email_address}"
 
 
 @dataclass(slots=True)
@@ -124,7 +129,7 @@ def main():
 
     for surgeon in surgeons:
         print(
-            f"My name is {surgeon.name}, I am a {surgeon.hospital_department} {surgeon.specialty.value}, my email address is {surgeon.email_address}, my id is {surgeon.hospital_id},\nI have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
+            f"My name is {surgeon.name}, I am a {surgeon.hospital_department} {surgeon.specialty.value}, {surgeon.say_email}, my id is {surgeon.hospital_id},\nI have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
             end="\n\n",
         )
 
@@ -138,7 +143,7 @@ def main():
 
     for nurse in nurses:
         print(
-            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nmy email address is {nurse.email_address}, I have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
+            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\n{nurse.say_email}, I have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
             end="\n\n",
         )
 
