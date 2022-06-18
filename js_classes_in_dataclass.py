@@ -37,6 +37,7 @@ class HospitalEmployee:
     specialty: Specialty
     days_off: int
     hospital_id: str = field(init=False)
+    email_address: str = field(init=False)
 
     @property
     def take_vacation_days(self) -> int:
@@ -49,18 +50,20 @@ class HospitalEmployee:
         return random.randint(0, PASSWORD_UPPER_LIMIT)
 
     def __post_init__(self):
-        """Generates hospital id"""
+        """Initializes the hospital employee id and email address"""
         self.hospital_id = generate_id(length=8)
+        first_name, last_name = self.name.split()
+        self.email_address = f"{first_name}.{last_name}@hospital.com"
 
 
-@dataclass
+@dataclass(slots=True)
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
 
     hospital_department: Department
 
 
-@dataclass
+@dataclass(slots=True)
 class Nurse(HospitalEmployee):
     """Child Class representing Nurse."""
 
@@ -95,13 +98,13 @@ class InstancesHolder:
     )
 
     nurse_olynyk = Nurse(
-        name="Olynyk",
+        name="Olynyk Ivans",
         specialty=Specialty.NURSE,
         certifications=["Trauma", "Pediatrics"],
         days_off=7,
     )
     nurse_spensa = Nurse(
-        name="Spensa",
+        name="Spensa Nightshade",
         specialty=Specialty.NURSE,
         certifications=["Cardiovascular", "Orthopedics"],
         days_off=8,
@@ -121,7 +124,7 @@ def main():
 
     for surgeon in surgeons:
         print(
-            f"My name is {surgeon.name}, I am a {surgeon.hospital_department} {surgeon.specialty.value}, my id is {surgeon.hospital_id}, I have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
+            f"My name is {surgeon.name}, I am a {surgeon.hospital_department} {surgeon.specialty.value}, my email address is {surgeon.email_address}, my id is {surgeon.hospital_id},\nI have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
             end="\n\n",
         )
 
@@ -135,7 +138,7 @@ def main():
 
     for nurse in nurses:
         print(
-            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nI have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
+            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\nmy email address is {nurse.email_address}, I have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
             end="\n\n",
         )
 
