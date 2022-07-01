@@ -67,6 +67,11 @@ class Surgeon(HospitalEmployee):
 
     hospital_department: Department
 
+    @property
+    def surgeon_description(self) -> str:
+        """Describes the Surgeon."""
+        return f"My name is {self.name}, I am a {self.hospital_department} {self.specialty.value}, {self.say_email}, my id is {self.hospital_id}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
+
 
 @dataclass(slots=True)
 class Nurse(HospitalEmployee):
@@ -79,41 +84,43 @@ class Nurse(HospitalEmployee):
         if new_certification not in self.certifications:
             self.certifications.append(new_certification)
 
+    @property
+    def nurse_description(self) -> str:
+        """Describes the Nurse"""
+        return f"My name is {self.name}, I am a {self.specialty.value}, my id is {self.hospital_id}, I am certified to work at {self.certifications},\n{self.say_email}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
 
-class InstancesHolder:
-    """Creates class instances"""
 
-    surgeon_romero = Surgeon(
-        name="Francisco Romero",
-        specialty=Specialty.SURGEON,
-        hospital_department=Department.CARDIOVASCULAR,
-        days_off=4,
-    )
-    surgeon_jackson = Surgeon(
-        name="Ruth Jackson",
-        specialty=Specialty.SURGEON,
-        hospital_department=Department.NEUROSURGERY,
-        days_off=5,
-    )
-    surgeon_octavian = Surgeon(
-        name="Tavi Octavian",
-        specialty=Specialty.SURGEON,
-        hospital_department=Department.ORTHOPEDICS,
-        days_off=6,
-    )
+surgeon_romero = Surgeon(
+    name="Francisco Romero",
+    specialty=Specialty.SURGEON,
+    hospital_department=Department.CARDIOVASCULAR,
+    days_off=4,
+)
+surgeon_jackson = Surgeon(
+    name="Ruth Jackson",
+    specialty=Specialty.SURGEON,
+    hospital_department=Department.NEUROSURGERY,
+    days_off=5,
+)
+surgeon_octavian = Surgeon(
+    name="Tavi Octavian",
+    specialty=Specialty.SURGEON,
+    hospital_department=Department.ORTHOPEDICS,
+    days_off=6,
+)
 
-    nurse_olynyk = Nurse(
-        name="Olynyk Ivans",
-        specialty=Specialty.NURSE,
-        certifications=["Trauma", "Pediatrics"],
-        days_off=7,
-    )
-    nurse_spensa = Nurse(
-        name="Spensa Nightshade",
-        specialty=Specialty.NURSE,
-        certifications=["Cardiovascular", "Orthopedics"],
-        days_off=8,
-    )
+nurse_olynyk = Nurse(
+    name="Olynyk Ivans",
+    specialty=Specialty.NURSE,
+    certifications=["Trauma", "Pediatrics"],
+    days_off=7,
+)
+nurse_spensa = Nurse(
+    name="Spensa Nightshade",
+    specialty=Specialty.NURSE,
+    certifications=["Cardiovascular", "Orthopedics"],
+    days_off=8,
+)
 
 
 def main():
@@ -121,20 +128,10 @@ def main():
 
     print()
 
-    surgeon_romero = InstancesHolder.surgeon_romero
-    surgeon_jackson = InstancesHolder.surgeon_jackson
-    surgeon_octavian = InstancesHolder.surgeon_octavian
-
     surgeons = [surgeon_romero, surgeon_jackson, surgeon_octavian]
 
     for surgeon in surgeons:
-        print(
-            f"My name is {surgeon.name}, I am a {surgeon.hospital_department} {surgeon.specialty.value}, {surgeon.say_email}, my id is {surgeon.hospital_id},\nI have {surgeon.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
-            end="\n\n",
-        )
-
-    nurse_olynyk = InstancesHolder.nurse_olynyk
-    nurse_spensa = InstancesHolder.nurse_spensa
+        print(surgeon.surgeon_description, end="\n\n")
 
     nurse_olynyk.add_certification("Genetics")
     nurse_spensa.add_certification("Neurology")
@@ -142,10 +139,7 @@ def main():
     nurses = [nurse_olynyk, nurse_spensa]
 
     for nurse in nurses:
-        print(
-            f"My name is {nurse.name}, I am a {nurse.specialty.value}, my id is {nurse.hospital_id}, I am certified to work at {nurse.certifications},\n{nurse.say_email}, I have {nurse.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}.",
-            end="\n\n",
-        )
+        print(nurse.nurse_description, end="\n\n")
 
 
 if __name__ == "__main__":
