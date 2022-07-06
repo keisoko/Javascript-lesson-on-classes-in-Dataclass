@@ -70,7 +70,10 @@ class Surgeon(HospitalEmployee):
     @property
     def surgeon_description(self) -> str:
         """Describes the Surgeon."""
-        return f"My name is {self.name}, I am a {self.hospital_department} {self.specialty.value}, {self.say_email}, my id is {self.hospital_id}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
+        if self.hospital_department.value[0] in "aeiouAEIOU":
+            return f"My name is {self.name}, I am an {self.hospital_department.value} {self.specialty.value}, {self.say_email}, my id is {self.hospital_id}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
+        else:
+            return f"My name is {self.name}, I am a {self.hospital_department.value} {self.specialty.value}, {self.say_email}, my id is {self.hospital_id}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
 
 
 @dataclass(slots=True)
