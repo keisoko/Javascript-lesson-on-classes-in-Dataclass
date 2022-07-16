@@ -37,13 +37,10 @@ class HospitalEmployee:
     specialty: Specialty
     days_off: int
     hospital_id: str = field(init=False)
-    email_address: str = field(init=False)
 
     def __post_init__(self):
         """Initializes the hospital employee id and email address"""
         self.hospital_id = generate_id(length=8)
-        first_name, last_name = self.name.split()
-        self.email_address = f"{first_name}.{last_name}@hospital.com"
 
     @property
     def take_vacation_days(self) -> int:
@@ -58,7 +55,8 @@ class HospitalEmployee:
     @property
     def say_email(self) -> str:
         """Display email address"""
-        return f"my email address is {self.email_address}"
+        first_name, last_name = self.name.split()
+        return f"{first_name.lower()}.{last_name.lower()}@hospital.com"
 
 
 @dataclass(slots=True)
@@ -70,10 +68,7 @@ class Surgeon(HospitalEmployee):
     @property
     def surgeon_description(self) -> str:
         """Describes the Surgeon."""
-        if self.hospital_department.value[0] in "aeiouAEIOU":
-            return f"My name is {self.name}, I am an {self.hospital_department.value} {self.specialty.value}, {self.say_email}, my id is {self.hospital_id}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
-        else:
-            return f"My name is {self.name}, I am a {self.hospital_department.value} {self.specialty.value}, {self.say_email}, my id is {self.hospital_id}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
+        return f"My name is {self.name}, I am a {self.hospital_department} {self.specialty.value}, my email address is {self.say_email}, my id is {self.hospital_id}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
 
 
 @dataclass(slots=True)
@@ -90,7 +85,7 @@ class Nurse(HospitalEmployee):
     @property
     def nurse_description(self) -> str:
         """Describes the Nurse"""
-        return f"My name is {self.name}, I am a {self.specialty.value}, my id is {self.hospital_id}, I am certified to work at {self.certifications},\n{self.say_email}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
+        return f"My name is {self.name}, I am a {self.specialty.value}, my id is {self.hospital_id}, I am certified to work at {self.certifications},\nmy email address is {self.say_email}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
 
 
 surgeon_romero = Surgeon(
