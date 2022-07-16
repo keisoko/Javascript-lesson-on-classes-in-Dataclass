@@ -39,7 +39,7 @@ class HospitalEmployee:
     hospital_id: str = field(init=False)
 
     def __post_init__(self):
-        """Initializes the hospital employee id and email address"""
+        """Initializes the hospital employee id"""
         self.hospital_id = generate_id(length=8)
 
     @property
