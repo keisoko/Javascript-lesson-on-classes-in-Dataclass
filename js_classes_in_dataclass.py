@@ -5,11 +5,17 @@ import string
 from dataclasses import dataclass, field
 from enum import Enum
 
-REMAINING_VACATION_DAYS: int = 20
-PASSWORD_UPPER_LIMIT: int = 10_000
+
+@dataclass(frozen=True)
+class ConstantsNamespace:
+    REMAINING_VACATION_DAYS: int = 20
+    PASSWORD_UPPER_LIMIT: int = 10_000
 
 
-def generate_id(length: int):
+constants = ConstantsNamespace()
+
+
+def generate_id(length: int) -> str:
     """Helper function to generate id."""
     return "".join(random.choices(string.hexdigits.upper(), k=length))
 
@@ -29,49 +35,61 @@ class Department(Enum):
     ORTHOPEDICS = "Orthopedics"
 
 
-@dataclass(slots=True)
+@dataclass(slots=True, kw_only=True)
 class HospitalEmployee:
-    """Dataclass representing the parent class of HospitalEmployee"""
+    """Dataclass representing the Hospital Employee"""
 
     name: str
     specialty: Specialty
     days_off: int
     hospital_id: str = field(init=False)
+    hospital_email: str = field(init=False)
 
     def __post_init__(self):
-        """Initializes the hospital employee id"""
+        """Initializes the hospital employee id and email"""
         self.hospital_id = generate_id(length=8)
+        first_name, last_name = self.name.split()
+        self.hospital_email = f"{first_name.lower()}.{last_name.lower()}@hospital.com"
 
     @property
     def take_vacation_days(self) -> int:
         """Calculates remaining vacation days"""
-        return REMAINING_VACATION_DAYS - self.days_off
+        return constants.REMAINING_VACATION_DAYS - self.days_off
+
+    @property
+    def say_email(self) -> str:
+        """Returns the hospital employee email address"""
+        return f"my email address is {self.hospital_email}."
 
     @staticmethod
     def generate_password() -> int:
         """Generates random password"""
-        return random.randint(0, PASSWORD_UPPER_LIMIT)
-
-    @property
-    def say_email(self) -> str:
-        """Display email address"""
-        first_name, last_name = self.name.split()
-        return f"{first_name.lower()}.{last_name.lower()}@hospital.com"
+        return random.randint(0, constants.PASSWORD_UPPER_LIMIT)
 
 
-@dataclass(slots=True)
+@dataclass(slots=True, kw_only=True)
 class Surgeon(HospitalEmployee):
     """Child Class representing Surgeon."""
 
     hospital_department: Department
 
     @property
-    def surgeon_description(self) -> str:
+    def say_surgeon_description(self) -> str:
         """Describes the Surgeon."""
-        return f"My name is {self.name}, I am a {self.hospital_department} {self.specialty.value}, my email address is {self.say_email}, my id is {self.hospital_id}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
+        return f"My name is {self.name}, I am a {self.hospital_department} {self.specialty.value} and {self.say_email}."
+
+    @property
+    def say_surgeon_id_and_password(self) -> str:
+        """Returns surgeon's id and password"""
+        return f"My id is {self.hospital_id} and my password is {HospitalEmployee.generate_password()}."
+
+    @property
+    def say_surgeon_remaining_vacation_days(self) -> str:
+        """Returns the surgeon's remaining vacation days"""
+        return f"I have {self.take_vacation_days} vacation days remaining"
 
 
-@dataclass(slots=True)
+@dataclass(slots=True, kw_only=True)
 class Nurse(HospitalEmployee):
     """Child Class representing Nurse."""
 
@@ -83,9 +101,19 @@ class Nurse(HospitalEmployee):
             self.certifications.append(new_certification)
 
     @property
-    def nurse_description(self) -> str:
+    def say_nurse_description(self) -> str:
         """Describes the Nurse"""
-        return f"My name is {self.name}, I am a {self.specialty.value}, my id is {self.hospital_id}, I am certified to work at {self.certifications},\nmy email address is {self.say_email}, I have {self.take_vacation_days} vacation days remaining and my password is {HospitalEmployee.generate_password()}."
+        return f"My name is {self.name}, I am a {self.specialty.value}, I am certified to work at {self.certifications} and {self.say_email}."
+
+    @property
+    def say_nurse_id_and_password(self) -> str:
+        """Returns the nurse id and password"""
+        return f"My id is {self.hospital_id} and my password is {HospitalEmployee.generate_password()}."
+
+    @property
+    def say_nurse_remaining_vacation_days(self) -> str:
+        """Returns the number of remaining vacations days"""
+        return f"I have {self.take_vacation_days} vacation days remaining."
 
 
 surgeon_romero = Surgeon(
@@ -106,7 +134,6 @@ surgeon_octavian = Surgeon(
     hospital_department=Department.ORTHOPEDICS,
     days_off=6,
 )
-
 nurse_olynyk = Nurse(
     name="Olynyk Ivans",
     specialty=Specialty.NURSE,
@@ -121,24 +148,29 @@ nurse_spensa = Nurse(
 )
 
 
-def main():
-    """Main program."""
+def execute_main() -> None:
 
     print()
 
     surgeons = [surgeon_romero, surgeon_jackson, surgeon_octavian]
 
     for surgeon in surgeons:
-        print(surgeon.surgeon_description, end="\n\n")
+        print(surgeon.say_surgeon_description)
+        print(surgeon.say_surgeon_id_and_password)
+        print(surgeon.say_surgeon_remaining_vacation_days, "\n")
 
     nurse_olynyk.add_certification("Genetics")
     nurse_spensa.add_certification("Neurology")
 
+    print()
+
     nurses = [nurse_olynyk, nurse_spensa]
 
     for nurse in nurses:
-        print(nurse.nurse_description, end="\n\n")
+        print(nurse.say_nurse_description)
+        print(nurse.say_nurse_id_and_password)
+        print(nurse.say_nurse_remaining_vacation_days, "\n")
 
 
 if __name__ == "__main__":
-    main()
+    execute_main()
