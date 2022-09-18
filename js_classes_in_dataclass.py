@@ -59,7 +59,7 @@ class HospitalEmployee:
     @property
     def say_email(self) -> str:
         """Returns the hospital employee email address"""
-        return f"my email address is {self.hospital_email}."
+        return f"My email address is {self.hospital_email}."
 
     @staticmethod
     def generate_password() -> int:
@@ -76,7 +76,7 @@ class Surgeon(HospitalEmployee):
     @property
     def say_surgeon_description(self) -> str:
         """Describes the Surgeon."""
-        return f"My name is {self.name}, I am a {self.hospital_department} {self.specialty.value} and {self.say_email}."
+        return f"My name is {self.name}, I am a {self.hospital_department} {self.specialty.value}."
 
     @property
     def say_surgeon_id_and_password(self) -> str:
@@ -103,7 +103,7 @@ class Nurse(HospitalEmployee):
     @property
     def say_nurse_description(self) -> str:
         """Describes the Nurse"""
-        return f"My name is {self.name}, I am a {self.specialty.value}, I am certified to work at {self.certifications} and {self.say_email}."
+        return f"My name is {self.name}, I am a {self.specialty.value}, I am certified to work at {self.certifications}."
 
     @property
     def say_nurse_id_and_password(self) -> str:
@@ -156,6 +156,7 @@ def execute_main() -> None:
 
     for surgeon in surgeons:
         print(surgeon.say_surgeon_description)
+        print(surgeon.say_email)
         print(surgeon.say_surgeon_id_and_password)
         print(surgeon.say_surgeon_remaining_vacation_days, "\n")
 
@@ -168,6 +169,7 @@ def execute_main() -> None:
 
     for nurse in nurses:
         print(nurse.say_nurse_description)
+        print(nurse.say_email)
         print(nurse.say_nurse_id_and_password)
         print(nurse.say_nurse_remaining_vacation_days, "\n")
 
