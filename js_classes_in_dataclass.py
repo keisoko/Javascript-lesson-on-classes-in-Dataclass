@@ -103,7 +103,11 @@ class Nurse(HospitalEmployee):
     @property
     def say_nurse_description(self) -> str:
         """Describes the Nurse"""
-        return f"My name is {self.name}, I am a {self.specialty.value}, I am certified to work at {self.certifications}."
+        return f"My name is {self.name} and I am a {self.specialty.value}."
+
+    @property
+    def say_my_certifications(self) -> str:
+        return f"I am certified to work at {self.certifications}."
 
     @property
     def say_nurse_id_and_password(self) -> str:
@@ -170,6 +174,7 @@ def execute_main() -> None:
     for nurse in nurses:
         print(nurse.say_nurse_description)
         print(nurse.say_email)
+        print(nurse.say_my_certifications)
         print(nurse.say_nurse_id_and_password)
         print(nurse.say_nurse_remaining_vacation_days, "\n")
 
