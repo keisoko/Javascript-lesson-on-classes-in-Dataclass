@@ -66,6 +66,16 @@ class HospitalEmployee:
         """Generates random password"""
         return random.randint(0, constants.PASSWORD_UPPER_LIMIT)
 
+    @property
+    def say_id_and_password(self) -> str:
+        """Returns surgeon's id and password"""
+        return f"My id is {self.hospital_id} and my password is {HospitalEmployee.generate_password()}."
+
+    @property
+    def say_remaining_vacation_days(self) -> str:
+        """Returns the surgeon's remaining vacation days"""
+        return f"I have {self.take_vacation_days} vacation days remaining."
+
 
 @dataclass(slots=True, kw_only=True)
 class Surgeon(HospitalEmployee):
@@ -77,16 +87,6 @@ class Surgeon(HospitalEmployee):
     def say_surgeon_description(self) -> str:
         """Describes the Surgeon."""
         return f"My name is {self.name} and I am a {self.hospital_department} {self.specialty.value}."
-
-    @property
-    def say_surgeon_id_and_password(self) -> str:
-        """Returns surgeon's id and password"""
-        return f"My id is {self.hospital_id} and my password is {HospitalEmployee.generate_password()}."
-
-    @property
-    def say_surgeon_remaining_vacation_days(self) -> str:
-        """Returns the surgeon's remaining vacation days"""
-        return f"I have {self.take_vacation_days} vacation days remaining"
 
 
 @dataclass(slots=True, kw_only=True)
@@ -108,16 +108,6 @@ class Nurse(HospitalEmployee):
     @property
     def say_nurse_certifications(self) -> str:
         return f"I am certified to work at {self.certifications}."
-
-    @property
-    def say_nurse_id_and_password(self) -> str:
-        """Returns the nurse id and password"""
-        return f"My id is {self.hospital_id} and my password is {HospitalEmployee.generate_password()}."
-
-    @property
-    def say_nurse_remaining_vacation_days(self) -> str:
-        """Returns the number of remaining vacations days"""
-        return f"I have {self.take_vacation_days} vacation days remaining."
 
 
 surgeon_romero = Surgeon(
@@ -152,6 +142,12 @@ nurse_spensa = Nurse(
 )
 
 
+def about_staff(staff_member) -> None:
+    print(staff_member.say_email)
+    print(staff_member.say_id_and_password)
+    print(staff_member.say_remaining_vacation_days, "\n")
+
+
 def execute_main() -> None:
 
     print()
@@ -160,9 +156,7 @@ def execute_main() -> None:
 
     for surgeon in surgeons:
         print(surgeon.say_surgeon_description)
-        print(surgeon.say_email)
-        print(surgeon.say_surgeon_id_and_password)
-        print(surgeon.say_surgeon_remaining_vacation_days, "\n")
+        about_staff(surgeon)
 
     nurse_olynyk.add_certification("Genetics")
     nurse_spensa.add_certification("Neurology")
@@ -173,10 +167,8 @@ def execute_main() -> None:
 
     for nurse in nurses:
         print(nurse.say_nurse_description)
-        print(nurse.say_email)
         print(nurse.say_nurse_certifications)
-        print(nurse.say_nurse_id_and_password)
-        print(nurse.say_nurse_remaining_vacation_days, "\n")
+        about_staff(nurse)
 
 
 if __name__ == "__main__":
