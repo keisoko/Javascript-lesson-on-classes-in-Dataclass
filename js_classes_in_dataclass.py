@@ -64,7 +64,7 @@ class HospitalEmployee:
     @staticmethod
     def generate_password() -> int:
         """Generates random password"""
-        return random.randint(0, constants.PASSWORD_UPPER_LIMIT)
+        return random.randrange(constants.PASSWORD_UPPER_LIMIT)
 
     @property
     def say_id_and_password(self) -> str:
