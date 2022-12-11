@@ -3,7 +3,7 @@
 import random
 import string
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum, auto
 
 
 @dataclass(frozen=True)
@@ -15,24 +15,24 @@ class ConstantsNamespace:
 constants = ConstantsNamespace()
 
 
-def generate_id(length: int) -> str:
+def generate_id() -> str:
     """Helper function to generate id."""
-    return "".join(random.choices(string.hexdigits.upper(), k=length))
+    return "".join(random.choices(string.hexdigits.upper(), k=8))
 
 
-class Specialty(Enum):
-    """Hospital Employee Specialty"""
+class Specialty(StrEnum):
+    """Enum class representing the Hospital Employee Specialty"""
 
-    SURGEON = "Surgeon"
-    NURSE = "Nurse"
+    SURGEON = auto()
+    NURSE = auto()
 
 
-class Department(Enum):
-    """Hospital Departments"""
+class Department(StrEnum):
+    """Enum class representing the Hospital Departments"""
 
-    CARDIOVASCULAR = "Cardiovascular"
-    NEUROSURGERY = "Neurosurgery"
-    ORTHOPEDICS = "Orthopedics"
+    CARDIOVASCULAR = auto()
+    NEUROSURGERY = auto()
+    ORTHOPEDICS = auto()
 
 
 @dataclass(slots=True, kw_only=True)
@@ -42,12 +42,11 @@ class HospitalEmployee:
     name: str
     specialty: Specialty
     days_off: int
-    hospital_id: str = field(init=False)
+    hospital_id: str = field(init=False, default_factory=generate_id)
     hospital_email: str = field(init=False)
 
     def __post_init__(self):
-        """Initializes the hospital employee id and email"""
-        self.hospital_id = generate_id(length=8)
+        """Initializes the hospital employee email"""
         first_name, last_name = self.name.split()
         self.hospital_email = f"{first_name.lower()}.{last_name.lower()}@hospital.com"
 
@@ -57,7 +56,7 @@ class HospitalEmployee:
         return constants.REMAINING_VACATION_DAYS - self.days_off
 
     @property
-    def say_email(self) -> str:
+    def display_email(self) -> str:
         """Returns the hospital employee email address"""
         return f"My email address is {self.hospital_email}."
 
@@ -67,12 +66,12 @@ class HospitalEmployee:
         return random.randrange(constants.PASSWORD_UPPER_LIMIT)
 
     @property
-    def say_id_and_password(self) -> str:
+    def display_id_and_password(self) -> str:
         """Returns surgeon's id and password"""
         return f"My id is {self.hospital_id} and my password is {HospitalEmployee.generate_password()}."
 
     @property
-    def say_remaining_vacation_days(self) -> str:
+    def display_remaining_vacation_days(self) -> str:
         """Returns the surgeon's remaining vacation days"""
         return f"I have {self.take_vacation_days} vacation days remaining."
 
@@ -84,9 +83,12 @@ class Surgeon(HospitalEmployee):
     hospital_department: Department
 
     @property
-    def say_surgeon_description(self) -> str:
+    def surgeon_description(self) -> str:
         """Describes the Surgeon."""
-        return f"My name is {self.name} and I am a {self.hospital_department} {self.specialty.value}."
+        if self.hospital_department.value[0] in "aeiou":
+            return f"My name is {self.name} and I am an {self.hospital_department} {self.specialty.value}."
+        else:
+            return f"My name is {self.name} and I am a {self.hospital_department} {self.specialty.value}."
 
 
 @dataclass(slots=True, kw_only=True)
@@ -95,18 +97,18 @@ class Nurse(HospitalEmployee):
 
     certifications: list[str] = field(default_factory=list)
 
+    @property
+    def nurse_description(self) -> str:
+        """Describes the Nurse"""
+        return f"My name is {self.name} and I am a {self.specialty.value}."
+
     def add_certification(self, new_certification: str) -> None:
         """Appends a new certification to the certifications list."""
         if new_certification not in self.certifications:
             self.certifications.append(new_certification)
 
     @property
-    def say_nurse_description(self) -> str:
-        """Describes the Nurse"""
-        return f"My name is {self.name} and I am a {self.specialty.value}."
-
-    @property
-    def say_nurse_certifications(self) -> str:
+    def nurse_certifications(self) -> str:
         return f"I am certified to work at {self.certifications}."
 
 
@@ -143,9 +145,9 @@ nurse_spensa = Nurse(
 
 
 def about_staff(staff_member) -> None:
-    print(staff_member.say_email)
-    print(staff_member.say_id_and_password)
-    print(staff_member.say_remaining_vacation_days, "\n")
+    print(staff_member.display_email)
+    print(staff_member.display_id_and_password)
+    print(staff_member.display_remaining_vacation_days, "\n")
 
 
 def execute_main() -> None:
@@ -155,7 +157,7 @@ def execute_main() -> None:
     surgeons = [surgeon_romero, surgeon_jackson, surgeon_octavian]
 
     for surgeon in surgeons:
-        print(surgeon.say_surgeon_description)
+        print(surgeon.surgeon_description)
         about_staff(surgeon)
 
     nurse_olynyk.add_certification("Genetics")
@@ -166,8 +168,8 @@ def execute_main() -> None:
     nurses = [nurse_olynyk, nurse_spensa]
 
     for nurse in nurses:
-        print(nurse.say_nurse_description)
-        print(nurse.say_nurse_certifications)
+        print(nurse.nurse_description)
+        print(nurse.nurse_certifications)
         about_staff(nurse)
 
 
