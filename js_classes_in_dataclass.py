@@ -51,11 +51,6 @@ class HospitalEmployee:
         self.hospital_email = f"{first_name.lower()}.{last_name.lower()}@hospital.com"
 
     @property
-    def take_vacation_days(self) -> int:
-        """Calculates remaining vacation days"""
-        return constants.REMAINING_VACATION_DAYS - self.days_off
-
-    @property
     def display_email(self) -> str:
         """Returns the hospital employee email address"""
         return f"My email address is {self.hospital_email}."
@@ -69,6 +64,11 @@ class HospitalEmployee:
     def display_id_and_password(self) -> str:
         """Returns surgeon's id and password"""
         return f"My id is {self.hospital_id} and my password is {HospitalEmployee.generate_password()}."
+
+    @property
+    def take_vacation_days(self) -> int:
+        """Calculates remaining vacation days"""
+        return constants.REMAINING_VACATION_DAYS - self.days_off
 
     @property
     def display_remaining_vacation_days(self) -> str:
@@ -86,9 +86,9 @@ class Surgeon(HospitalEmployee):
     def surgeon_description(self) -> str:
         """Describes the Surgeon."""
         if self.hospital_department.value[0] in "aeiou":
-            return f"My name is {self.name} and I am an {self.hospital_department} {self.specialty.value}."
+            return f"My name is {self.name} and I am an {self.hospital_department} {self.specialty}."
         else:
-            return f"My name is {self.name} and I am a {self.hospital_department} {self.specialty.value}."
+            return f"My name is {self.name} and I am a {self.hospital_department} {self.specialty}."
 
 
 @dataclass(slots=True, kw_only=True)
@@ -100,7 +100,7 @@ class Nurse(HospitalEmployee):
     @property
     def nurse_description(self) -> str:
         """Describes the Nurse"""
-        return f"My name is {self.name} and I am a {self.specialty.value}."
+        return f"My name is {self.name} and I am a {self.specialty}."
 
     def add_certification(self, new_certification: str) -> None:
         """Appends a new certification to the certifications list."""
