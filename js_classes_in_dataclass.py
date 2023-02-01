@@ -1,9 +1,9 @@
 """Codecademy JavaScript lesson on Classes in the Python Dataclass syntax"""
 
 import random
-import string
 from dataclasses import dataclass, field
 from enum import StrEnum, auto
+from uuid import uuid4
 
 
 @dataclass(frozen=True)
@@ -17,7 +17,7 @@ constants = ConstantsNamespace()
 
 def generate_id() -> str:
     """Helper function to generate id."""
-    return "".join(random.choices(string.hexdigits.upper(), k=8))
+    return uuid4().hex
 
 
 class Specialty(StrEnum):
