@@ -8,6 +8,8 @@ from uuid import uuid4
 
 @dataclass(frozen=True)
 class ConstantsNamespace:
+    """Constant namespaces"""
+
     REMAINING_VACATION_DAYS: int = 20
     PASSWORD_UPPER_LIMIT: int = 10_000
 
@@ -85,10 +87,9 @@ class Surgeon(HospitalEmployee):
     @property
     def surgeon_description(self) -> str:
         """Describes the Surgeon."""
-        if self.hospital_department.value[0] in "aeiou":
+        if self.hospital_department.startswith(("a", "e", "i", "o", "u")):
             return f"My name is {self.name} and I am an {self.hospital_department} {self.specialty}."
-        else:
-            return f"My name is {self.name} and I am a {self.hospital_department} {self.specialty}."
+        return f"My name is {self.name} and I am a {self.hospital_department} {self.specialty}."
 
 
 @dataclass(slots=True, kw_only=True)
@@ -109,6 +110,7 @@ class Nurse(HospitalEmployee):
 
     @property
     def nurse_certifications(self) -> str:
+        """Returns the nurse certification information"""
         return f"I am certified to work at {self.certifications}."
 
 
@@ -145,13 +147,14 @@ nurse_spensa = Nurse(
 
 
 def about_staff(staff_member) -> None:
+    """Outputs General information about a staff member"""
     print(staff_member.display_email)
     print(staff_member.display_id_and_password)
     print(staff_member.display_remaining_vacation_days, "\n")
 
 
 def execute_main() -> None:
-
+    """Main function"""
     print()
 
     surgeons = [surgeon_romero, surgeon_jackson, surgeon_octavian]
