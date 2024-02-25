@@ -48,7 +48,7 @@ class HospitalEmployee:
     def __post_init__(self):
         """Initializes the hospital employee email"""
         first_name, last_name = self.name.split()
-        self.employee_email = f"{first_name.lower()}.{last_name.lower()}@hospital.com"
+        self.employee_email = f"{first_name.lower()}_{last_name.lower()}@hospital.com"
 
     @property
     def display_email(self) -> str:
