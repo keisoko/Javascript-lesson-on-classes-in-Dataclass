@@ -41,9 +41,9 @@ class HospitalEmployee:
     name: str
     specialty: Specialty
     days_off: int
-    employee_id: str = field(init=False, default_factory=generate_id)
-    employee_password: int = field(init=False, default_factory=generate_password)
     employee_email: str = field(init=False)
+    employee_id: str = field(init=False, default_factory=generate_id)
+    employee_passwd: int = field(init=False, default_factory=generate_password)
 
     def __post_init__(self):
         """Initializes the hospital employee email"""
@@ -60,7 +60,7 @@ class HospitalEmployee:
         """Returns hospital employee's id and password"""
         return (
             f"My id is {self.employee_id} and "
-            f"my password is {self.employee_password}."
+            f"my password is {self.employee_passwd}."
         )
 
     @property
