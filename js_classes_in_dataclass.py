@@ -84,8 +84,14 @@ class Surgeon(HospitalEmployee):
     def surgeon_description(self) -> str:
         """Describes the Surgeon."""
         if self.hospital_department.startswith(("a", "e", "i", "o", "u")):
-            return f"My name is {self.name} and I am an {self.hospital_department} {self.specialty}."
-        return f"My name is {self.name} and I am a {self.hospital_department} {self.specialty}."
+            return (
+                f"My name is {self.name} "
+                f"and I am an {self.hospital_department} {self.specialty}."
+            )
+        return (
+            f"My name is {self.name} "
+            f"and I am a {self.hospital_department} {self.specialty}."
+        )
 
 
 @dataclass(slots=True, kw_only=True)
