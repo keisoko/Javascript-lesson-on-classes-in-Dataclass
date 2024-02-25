@@ -22,6 +22,11 @@ def generate_id() -> str:
     return uuid4().hex
 
 
+def generate_password() -> int:
+    """Generates random password"""
+    return random.randrange(constants.PASSWORD_UPPER_LIMIT)
+
+
 class Specialty(StrEnum):
     """Enum class representing the Hospital Employee Specialty"""
 
@@ -45,6 +50,7 @@ class HospitalEmployee:
     specialty: Specialty
     days_off: int
     hospital_id: str = field(init=False, default_factory=generate_id)
+    employee_password: int = field(init=False, default_factory=generate_password)
     hospital_email: str = field(init=False)
 
     def __post_init__(self):
@@ -57,15 +63,13 @@ class HospitalEmployee:
         """Returns the hospital employee email address"""
         return f"My email address is {self.hospital_email}."
 
-    @staticmethod
-    def generate_password() -> int:
-        """Generates random password"""
-        return random.randrange(constants.PASSWORD_UPPER_LIMIT)
-
     @property
     def display_id_and_password(self) -> str:
-        """Returns surgeon's id and password"""
-        return f"My id is {self.hospital_id} and my password is {HospitalEmployee.generate_password()}."
+        """Returns hospital employee's id and password"""
+        return (
+            f"My id is {self.hospital_id} and "
+            f"my password is {self.employee_password}."
+        )
 
     @property
     def take_vacation_days(self) -> int:
