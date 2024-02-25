@@ -5,16 +5,8 @@ from dataclasses import dataclass, field
 from enum import StrEnum, auto
 from uuid import uuid4
 
-
-@dataclass(frozen=True)
-class ConstantsNamespace:
-    """Constant namespaces"""
-
-    REMAINING_VACATION_DAYS: int = 20
-    PASSWORD_UPPER_LIMIT: int = 10_000
-
-
-constants = ConstantsNamespace()
+REMAINING_VACATION_DAYS: int = 20
+PASSWORD_UPPER_LIMIT: int = 10_000
 
 
 def generate_id() -> str:
@@ -24,7 +16,7 @@ def generate_id() -> str:
 
 def generate_password() -> int:
     """Generates random password"""
-    return random.randrange(constants.PASSWORD_UPPER_LIMIT)
+    return random.randrange(PASSWORD_UPPER_LIMIT)
 
 
 class Specialty(StrEnum):
@@ -74,7 +66,7 @@ class HospitalEmployee:
     @property
     def take_vacation_days(self) -> int:
         """Calculates remaining vacation days"""
-        return constants.REMAINING_VACATION_DAYS - self.days_off
+        return REMAINING_VACATION_DAYS - self.days_off
 
     @property
     def display_remaining_vacation_days(self) -> str:
