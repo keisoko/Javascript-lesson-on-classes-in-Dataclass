@@ -15,7 +15,7 @@ def generate_id() -> str:
 
 
 def generate_password() -> int:
-    """Generates random password"""
+    """Helper function to generate random password."""
     return random.randrange(PASSWORD_UPPER_LIMIT)
 
 
