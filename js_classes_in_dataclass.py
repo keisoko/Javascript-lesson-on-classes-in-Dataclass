@@ -47,8 +47,11 @@ class HospitalEmployee:
 
     def __post_init__(self):
         """Initializes the hospital employee email"""
-        first_name, last_name = self.name.split()
-        self.employee_email = f"{first_name.lower()}_{last_name.lower()}@hospital.com"
+        email_username = self.name.casefold().split()
+        if len(email_username) > 1:
+            self.employee_email = f"{"_".join(email_username)}@hospital.com"
+        else:
+            self.employee_email = f"{email_username[0]}@hospital.com"
 
     @property
     def display_email(self) -> str:
